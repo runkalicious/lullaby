@@ -26,7 +26,6 @@ function pausePlayback(tabid) {
 		});
 	});
 	
-	console.log("Pausing playback on tab: " + tabid);
 	createNotification(NOTIFY_PAUSE_TITLE, NOTIFY_PAUSE_MSG);
 }
 
@@ -38,6 +37,9 @@ function setTimer(minutes, tabid) {
 	// Add the manager to watch the tab
 	chrome.tabs.executeScript(tabid, {file: "libs/jquery-2.0.3.min.js"});
 	chrome.tabs.executeScript(tabid, {file: "manager.js"});
+	
+	console.log("Scheduling a timer for " + minutes + " minutes");
+	createNotification(NOTIFY_SCHED_TITLE, NOTIFY_SCHED_MSG + minutes + " minutes");
 }
 
 function onAlarm(alarm) {
@@ -50,7 +52,6 @@ function onAlarm(alarm) {
 }
 
 function clearTimers(tabid) {
-	console.log("Clearing timers for tab " + tabid);
 	chrome.alarms.clear(ALARM_WARNING + "-" + tabid);
 	chrome.alarms.clear(ALARM_PAUSE + "-" + tabid);
 }
@@ -64,10 +65,12 @@ chrome.runtime.onMessage.addListener(
 		switch(request.task) {
 			case "setTime":
 				setTimer(request.time, request.tab);
+				sendResponse({result: true});
 				break;
 				
 			case "clear":
 				clearTimers(sender.tab ? sender.tab.id : request.tab);
+				sendResponse({result: true});
 				break;
 			
 			default:

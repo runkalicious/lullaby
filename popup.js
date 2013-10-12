@@ -13,12 +13,11 @@ function submitForm(e) {
 		
 		chrome.tabs.query({active: true, currentWindow: true}, function(array_of_tabs) {
 			var tab = array_of_tabs[0];
-			chrome.runtime.sendMessage({task: "setTime", time: parseInt(length), tab: tab.id});
+			chrome.runtime.sendMessage({task: "setTime", time: parseInt(length), tab: tab.id}, function(response) {
+				window.close();
+			});
 		});
 	}
-	
-	// Close the popup
-	//window.close();
 	
 	return false;
 }

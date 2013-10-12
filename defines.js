@@ -11,6 +11,8 @@ WARNING_LENGTH = 5;	// minutes
 // Notifications
 NOTIFY_TIMEOUT = 10; // seconds
 
+NOTIFY_SCHED_TITLE = "Sleep Timer Scheduled";
+NOTIFY_SCHED_MSG = "Lullaby will stop playback in ";
 NOTIFY_WARN_TITLE = "Sleep Warning";
 NOTIFY_WARN_MSG = "In 5 minutes, Lullaby will pause music playback.";
 NOTIFY_PAUSE_TITLE = "Playback Paused";
