@@ -13,9 +13,7 @@ function submitForm(e) {
 		
 		chrome.tabs.query({active: true, currentWindow: true}, function(array_of_tabs) {
 			var tab = array_of_tabs[0];
-			chrome.runtime.sendMessage({task: "setTime", time: parseInt(length), tab: tab.id}, function(response) {
-				console.log("Scheduling was successful: " + response.result);
-			});
+			chrome.runtime.sendMessage({task: "setTime", time: parseInt(length), tab: tab.id});
 		});
 	}
 	

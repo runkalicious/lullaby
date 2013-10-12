@@ -21,6 +21,11 @@ chrome.runtime.onMessage.addListener(
 				console.log("Unknown task: ", request.task);
 				sendResponse({result: false});
 		}
-	});
+	}
+);
 
-// TODO listen for page closes
+// If the page is removed, we should cancel our timers
+$(window).unload(function() {
+	chrome.runtime.sendMessage({task: 'clear'});
+	return true;
+});

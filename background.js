@@ -36,6 +36,7 @@ function setTimer(minutes, tabid) {
 	chrome.alarms.create(ALARM_PAUSE + "-" + tabid, {delayInMinutes: minutes});
 	
 	// Add the manager to watch the tab
+	chrome.tabs.executeScript(tabid, {file: "libs/jquery-2.0.3.min.js"});
 	chrome.tabs.executeScript(tabid, {file: "manager.js"});
 }
 
@@ -48,18 +49,29 @@ function onAlarm(alarm) {
 		console.log("Unknown alarm.", alarm);
 }
 
+function clearTimers(tabid) {
+	console.log("Clearing timers for tab " + tabid);
+	chrome.alarms.clear(ALARM_WARNING + "-" + tabid);
+	chrome.alarms.clear(ALARM_PAUSE + "-" + tabid);
+}
+
 // Register alarm callbacks
 chrome.alarms.onAlarm.addListener(onAlarm);
 
 // Setup message passing so popup can send requests
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
-		console.log(sender.tab ?
-			"from a content script: " + sender.tab.url :
-			"from the extension");
-		if (request.task == "setTime") {
-			setTimer(request.time, request.tab);
-			sendResponse({result: true});
+		switch(request.task) {
+			case "setTime":
+				setTimer(request.time, request.tab);
+				break;
+				
+			case "clear":
+				clearTimers(sender.tab ? sender.tab.id : request.tab);
+				break;
+			
+			default:
+				console.log("Unknown task", request.task);
 		}
 	}
 );
