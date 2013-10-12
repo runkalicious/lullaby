@@ -16,5 +16,11 @@ function checkForSupportedSite(tabId, changeInfo, tab) {
 	});
 }
 
+function injectConnector(tabid, callback) {
+	// TODO lookup correct script
+	
+	chrome.tabs.executeScript(tabid, {file: "connectors/googlemusic.js"}, callback);
+}
+
 // Listen for any changes to the URL of any tab
 chrome.tabs.onUpdated.addListener(checkForSupportedSite);

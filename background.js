@@ -18,7 +18,14 @@ function createNotification(title, message) {
 }
 
 function pausePlayback(tabid) {
-	// TODO
+	// Time to add the service-specific script
+	injectConnector(tabid, function() {
+		// Once the script is added, execute pause command
+		chrome.tabs.sendMessage(tabid, {task: "pause"}, function(response) {
+			console.log(response);
+		});
+	});
+	
 	console.log("Pausing playback on tab: " + tabid);
 	createNotification(NOTIFY_PAUSE_TITLE, NOTIFY_PAUSE_MSG);
 }
@@ -27,13 +34,16 @@ function setTimer(minutes, tabid) {
 	if ((minutes - WARNING_LENGTH) > 0)
 		chrome.alarms.create(ALARM_WARNING + "-" + tabid, {delayInMinutes: minutes-WARNING_LENGTH});
 	chrome.alarms.create(ALARM_PAUSE + "-" + tabid, {delayInMinutes: minutes});
+	
+	// Add the manager to watch the tab
+	chrome.tabs.executeScript(tabid, {file: "manager.js"});
 }
 
 function onAlarm(alarm) {
 	if (alarm && alarm.name.startsWith(ALARM_WARNING))
 		createNotification(NOTIFY_WARN_TITLE, NOTIFY_WARN_MSG);
 	else if (alarm && alarm.name.startsWith(ALARM_PAUSE))
-		pausePlayback(alarm.name.split("-")[1]);
+		pausePlayback(parseInt(alarm.name.split("-")[1]));
 	else
 		console.log("Unknown alarm.", alarm);
 }
