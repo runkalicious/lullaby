@@ -4,17 +4,20 @@
 
 var form = null;
 
-function setTimer(e) {
+function submitForm(e) {
 	if (e.preventDefault) e.preventDefault();
 	
 	if (form != null) {
 		var length = form.length.options[form.length.selectedIndex].value;
-		alert(length);
-		// TODO add notification confirming time
+		console.log("Scheduling timer for " + length + " minutes");
+		
+		chrome.runtime.sendMessage({task: "setTime", time: parseInt(length)}, function(response) {
+			console.log("Scheduling was successful: " + response.result);
+		});
 	}
 	
 	// Close the popup
-	window.close();
+	//window.close();
 	
 	return false;
 }
@@ -23,8 +26,8 @@ function setTimer(e) {
 document.addEventListener('DOMContentLoaded', function () {
 	form = document.getElementById('timer');
 	if (form.attachEvent) {
-		form.attachEvent("submit", setTimer);
+		form.attachEvent("submit", submitForm);
 	} else {
-		form.addEventListener("submit", setTimer);
+		form.addEventListener("submit", submitForm);
 	}
 });
