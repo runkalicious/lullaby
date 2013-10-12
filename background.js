@@ -35,8 +35,13 @@ function setTimer(minutes, tabid) {
 	chrome.alarms.create(ALARM_PAUSE + "-" + tabid, {delayInMinutes: minutes});
 	
 	// Add the manager to watch the tab
-	chrome.tabs.executeScript(tabid, {file: "libs/jquery-2.0.3.min.js"});
-	chrome.tabs.executeScript(tabid, {file: "manager.js"});
+	chrome.tabs.sendMessage(tabid, { type: 'ping' }, function (response) {
+		// Only inject if they are aren't already in place
+		if (!response) {
+			chrome.tabs.executeScript(tabid, {file: "libs/jquery-2.0.3.min.js"});
+			chrome.tabs.executeScript(tabid, {file: "manager.js"});
+		}
+	});
 	
 	console.log("Scheduling a timer for " + minutes + " minutes");
 	createNotification(NOTIFY_SCHED_TITLE, NOTIFY_SCHED_MSG + minutes + " minutes");

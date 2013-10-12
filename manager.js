@@ -8,7 +8,7 @@ chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		switch(request.task) {
 			case "pause":
-				console.log("I should pause the service on this tab now.");
+				// Pause the player
 				if (l_isPlaying()) {
 					l_pause();
 					sendResponse({result: true});
@@ -16,6 +16,10 @@ chrome.runtime.onMessage.addListener(
 					sendResponse({result: false});
 				}
 				break;
+				
+			case "ping":
+				// Respond still active
+				sendResponse({result: true});
 				
 			default:
 				console.log("Unknown task: ", request.task);
