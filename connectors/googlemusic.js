@@ -1,6 +1,13 @@
-// Copyright (c) 2013 Matt Runkle. All rights reserved.
-// Use of this source code is governed by a BSD-style license that can be
-// found in the LICENSE file.
+/**
+ * Lullaby - Google Music connector
+ * by Matt Runkle
+ *
+ * https://github.com/runkalicious/lullaby
+ *
+ * Use of this source code is governed by the MIT license
+ * that can be found in the LICENSE file.
+ *
+ */
 
 function l_isPlaying() {
 	// Google adds the class 'playing' to the play/pause button

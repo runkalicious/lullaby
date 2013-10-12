@@ -3,7 +3,7 @@
 
   "name": "Lullaby",
   "description": "A sleep timer for streaming web services.",
-  "version": "0.9",
+  "version": "0.9.1",
   
   "icons": { "128": "images/icon128.png" },
 
