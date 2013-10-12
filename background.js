@@ -17,23 +17,23 @@ function createNotification(title, message) {
 	});
 }
 
-function pausePlayback() {
+function pausePlayback(tabid) {
 	// TODO
-	
+	console.log("Pausing playback on tab: " + tabid);
 	createNotification(NOTIFY_PAUSE_TITLE, NOTIFY_PAUSE_MSG);
 }
 
-function setTimer(minutes) {
+function setTimer(minutes, tabid) {
 	if ((minutes - WARNING_LENGTH) > 0)
-		chrome.alarms.create(ALARM_WARNING, {delayInMinutes: minutes-WARNING_LENGTH});
-	chrome.alarms.create(ALARM_PAUSE, {delayInMinutes: minutes});
+		chrome.alarms.create(ALARM_WARNING + "-" + tabid, {delayInMinutes: minutes-WARNING_LENGTH});
+	chrome.alarms.create(ALARM_PAUSE + "-" + tabid, {delayInMinutes: minutes});
 }
 
 function onAlarm(alarm) {
-	if (alarm && alarm.name == ALARM_WARNING)
+	if (alarm && alarm.name.startsWith(ALARM_WARNING))
 		createNotification(NOTIFY_WARN_TITLE, NOTIFY_WARN_MSG);
-	else if (alarm && alarm.name == ALARM_PAUSE)
-		pausePlayback();
+	else if (alarm && alarm.name.startsWith(ALARM_PAUSE))
+		pausePlayback(alarm.name.split("-")[1]);
 	else
 		console.log("Unknown alarm.", alarm);
 }
@@ -48,7 +48,7 @@ chrome.runtime.onMessage.addListener(
 			"from a content script: " + sender.tab.url :
 			"from the extension");
 		if (request.task == "setTime") {
-			setTimer(request.time);
+			setTimer(request.time, request.tab);
 			sendResponse({result: true});
 		}
 	}

@@ -11,8 +11,11 @@ function submitForm(e) {
 		var length = form.length.options[form.length.selectedIndex].value;
 		console.log("Scheduling timer for " + length + " minutes");
 		
-		chrome.runtime.sendMessage({task: "setTime", time: parseInt(length)}, function(response) {
-			console.log("Scheduling was successful: " + response.result);
+		chrome.tabs.query({active: true, currentWindow: true}, function(array_of_tabs) {
+			var tab = array_of_tabs[0];
+			chrome.runtime.sendMessage({task: "setTime", time: parseInt(length), tab: tab.id}, function(response) {
+				console.log("Scheduling was successful: " + response.result);
+			});
 		});
 	}
 	

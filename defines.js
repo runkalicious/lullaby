@@ -15,3 +15,10 @@ NOTIFY_WARN_TITLE = "Sleep Warning";
 NOTIFY_WARN_MSG = "In 5 minutes, Lullaby will pause music playback.";
 NOTIFY_PAUSE_TITLE = "Playback Paused";
 NOTIFY_PAUSE_MSG = "Lullaby has paused media playback. Sweet dreams.";
+
+// Helper methods
+if (typeof String.prototype.startsWith != 'function') {
+	String.prototype.startsWith = function(str) {
+		return this.slice(0, str.length) == str;
+	};
+}
