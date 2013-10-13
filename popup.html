@@ -5,19 +5,26 @@
     <style>
       /* TODO */
     </style>
+	<script type="text/javascript" src="libs/jquery-2.0.3.min.js"></script>
+	<script type="text/javascript" src="defines.js"></script>
 	<script type="text/javascript" src="popup.js"></script>
   </head>
   <body>
-	<form id="timer">
-		<select name="length">
-			<option value="1">1 Minute</option>
-			<option value="15">15 Minutes</option>
-			<option value="30">30 Minutes</option>
-			<option value="45">45 Minutes</option>
-			<option value="60">60 Minutes</option>
-		</select>
-		<input type="submit" name="submit" value="Snooze" />
-	</form>
+	<div id="schedule_timer" style="display: none;">
+		<form id="timer" name="timer">
+			<select name="length" id="length">
+				<option value="1">1 Minute</option>
+				<option value="15">15 Minutes</option>
+				<option value="30">30 Minutes</option>
+				<option value="45">45 Minutes</option>
+				<option value="60">60 Minutes</option>
+			</select>
+			<input type="submit" name="submit" value="Snooze" />
+		</form>
+	</div>
+	<div id="timer_active" style="display: none;">
+		<p>Lullaby will pause this service in <span id="pause_time"></span></p>
+	</div>
   </body>
 </html>
 

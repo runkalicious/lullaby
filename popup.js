@@ -9,32 +9,76 @@
  *
  */
 
-var form = null;
+var FORM_ID = '#schedule_timer';
+var MSG_ID = '#timer_active';
+var TIME_ID = '#pause_time';
+
+var tabid;
+
+var count;
+var counter;
 
 function submitForm(e) {
 	if (e.preventDefault) e.preventDefault();
 	
-	if (form != null) {
-		var length = form.length.options[form.length.selectedIndex].value;
-		console.log("Scheduling timer for " + length + " minutes");
-		
-		chrome.tabs.query({active: true, currentWindow: true}, function(array_of_tabs) {
-			var tab = array_of_tabs[0];
-			chrome.runtime.sendMessage({task: "setTime", time: parseInt(length), tab: tab.id}, function(response) {
-				window.close();
-			});
-		});
-	}
+	var length = $('#length').val();
+	console.log("Scheduling timer for " + length + " minutes");
+	
+	chrome.runtime.sendMessage({task: "setTime", time: parseInt(length), tab: tabid}, function(response) {
+		window.close();
+	});
 	
 	return false;
 }
 
+function updateCountdown() {
+	count = count - 1;
+	if (count < 0) {
+		clearInterval(counter);
+		$(MSG_ID).toggle();
+		$(FORM_ID).toggle();
+		return;
+	}
+	
+	$(TIME_ID).text(getTimestamp());
+}
+
+function getTimestamp() {
+	var hours = parseInt( count / 3600 ) % 24;
+	var minutes = parseInt( count / 60 ) % 60;
+	var seconds = count % 60;
+	
+	return hours 
+		+ ":" + (minutes < 10 ? "0" + minutes : minutes) 
+		+ ":" + (seconds  < 10 ? "0" + seconds : seconds);
+}
+
 // Register the form listener
 document.addEventListener('DOMContentLoaded', function () {
-	form = document.getElementById('timer');
-	if (form.attachEvent) {
-		form.attachEvent("submit", submitForm);
-	} else {
-		form.addEventListener("submit", submitForm);
-	}
+	chrome.tabs.query({active: true, currentWindow: true}, function(array_of_tabs) {
+		tabid = array_of_tabs[0].id;
+		
+		chrome.alarms.get(ALARM_PAUSE + "-" + tabid, function(alarm) {
+			console.log(alarm);
+			if (alarm === undefined) {
+				console.log("Show form");
+				// No sleep timer set, show form
+				$(FORM_ID).show();
+				$('#timer').submit(submitForm);
+			}
+			else {
+				console.log("show message");
+				// Sleep timer is already set, show information
+				count = ((alarm.scheduledTime / 1000) - (new Date().getTime() / 1000)) | 0;
+				counter = setInterval(updateCountdown, 1000);
+				
+				$(TIME_ID).text(getTimestamp());
+				$(MSG_ID).show();
+			}
+		});
+	});
+	
+	
+	
+	
 });
