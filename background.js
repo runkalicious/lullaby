@@ -50,7 +50,6 @@ function setTimer(minutes, tabid) {
 		}
 	});
 	
-	console.log("Scheduling a timer for " + minutes + " minutes");
 	createNotification(NOTIFY_SCHED_TITLE, NOTIFY_SCHED_MSG + minutes + " minutes");
 }
 
