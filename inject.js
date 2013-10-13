@@ -33,7 +33,6 @@ function checkForSupportedSite(tabId, changeInfo, tab) {
 	var hostname = getHostname(tab.url);
 	
 	var match = !CONNECTORS.every(function(connector) {
-		console.log(connector.site);
 		if (hostname == connector.site) {
 			chrome.pageAction.show(tabId);
 			return false; // break
