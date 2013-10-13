@@ -11,9 +11,19 @@
 
 var CONNECTORS = [
 	{
+		name: "8tracks",
+		script: "8tracks.js",
+		site: "8tracks.com"
+	},
+	{
 		name: "Google Music",
 		script: "googlemusic.js",
 		site: "play.google.com"
+	},
+	{
+		name: "Grooveshark",
+		script: "grooveshark.js",
+		site: "grooveshark.com"
 	},
 	{
 		name: "Pandora",
