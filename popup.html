@@ -3,7 +3,33 @@
   <head>
     <title>Lullaby</title>
     <style>
-      /* TODO */
+		body {
+			padding: 5px 0;
+			font-size: 75%;
+			font-family: Helvetica, Arial, sans-serif;
+			width: 150px;
+			background: #ffffff;
+			color: #000000;
+		}
+		
+		label {
+			font-weight: bold;
+			float: left;
+		}
+		
+		select {
+			clear: both;
+			width: 100%;
+		}
+		
+		input[type=submit] {
+			float: right;
+		}
+		
+		#pause_time {
+			font-weight: bold;
+			text-align: center;
+		}
     </style>
 	<script type="text/javascript" src="libs/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript" src="defines.js"></script>
@@ -12,6 +38,7 @@
   <body>
 	<div id="schedule_timer" style="display: none;">
 		<form id="timer" name="timer">
+			<label for="length">Pause in</label>
 			<select name="length" id="length">
 				<option value="1">1 Minute</option>
 				<option value="15">15 Minutes</option>
@@ -21,9 +48,11 @@
 			</select>
 			<input type="submit" name="submit" value="Snooze" />
 		</form>
+		<div style="clear:both;"></div>
 	</div>
 	<div id="timer_active" style="display: none;">
-		<p>Lullaby will pause this service in <span id="pause_time"></span></p>
+		<p>Lullaby will pause this service in:</p>
+		<p id="pause_time">0:00:59</p>
 	</div>
   </body>
 </html>
