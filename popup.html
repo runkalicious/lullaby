@@ -39,12 +39,28 @@
 			font-weight: bold;
 			text-align: center;
 		}
+		
+		#cancel {
+			float: right;
+		}
+		
+		#notification {
+			text-align: center;
+		}
+		
+		#message {
+			color: #CC0000;
+			font-weight: bold;
+		}
     </style>
 	<script type="text/javascript" src="libs/jquery-2.0.3.min.js"></script>
 	<script type="text/javascript" src="defines.js"></script>
 	<script type="text/javascript" src="popup.js"></script>
   </head>
   <body>
+	<div id="notification" style="display: none;">
+		<span id="message">Error testing</span>
+	</div>
 	<div id="schedule_timer" style="display: none;">
 		<form id="timer" name="timer">
 			<label for="length">Pause in</label>
@@ -56,12 +72,13 @@
 			</select>
 			<input type="submit" name="submit" value="Snooze" />
 		</form>
-		<div style="clear:both;"></div>
 	</div>
 	<div id="timer_active" style="display: none;">
 		<p>Lullaby will pause this service in:</p>
 		<p id="pause_time">0:00:59</p>
+		<button id="cancel">Cancel</button>
 	</div>
+	<div style="clear:both;"></div>
   </body>
 </html>
 

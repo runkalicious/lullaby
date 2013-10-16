@@ -12,6 +12,10 @@
 var FORM_ID = '#schedule_timer';
 var MSG_ID = '#timer_active';
 var TIME_ID = '#pause_time';
+var CANCEL_ID = '#cancel';
+
+var ERROR_ID = '#message';
+var NOTIFY_ID = '#notifcation';
 
 var tabid;
 
@@ -29,6 +33,30 @@ function submitForm(e) {
 	});
 	
 	return false;
+}
+
+function cancel(e) {
+	if (e.preventDefault) e.preventDefault();
+
+	chrome.runtime.sendMessage({task: "clear", tab: tabid}, function(response) {
+		if (response.result) {
+			clearInterval(counter);
+			$(MSG_ID).toggle();
+			$(FORM_ID).toggle();
+		}
+		else {
+			showNotification("Error canceling timer!");
+		}
+	});
+}
+
+function showNotification(message) {
+	$(ERROR_ID).text(message);
+	$(NOTIFY_ID).show();
+}
+
+function hideNotification() {
+	$(NOTIFY_ID).hide();
 }
 
 function updateCountdown() {
@@ -73,6 +101,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				counter = setInterval(updateCountdown, 1000);
 				
 				$(TIME_ID).text(getTimestamp());
+				$(CANCEL_ID).click(cancel);
 				$(MSG_ID).show();
 			}
 		});
