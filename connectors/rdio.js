@@ -13,7 +13,7 @@ var PAUSE = 'button.play_pause';
 var PLAYING = 'playing';
 
 function l_isPlaying() {
-	// Pandora toggles display of play/pause buttons
+	// Rdio adds a class to the play/pause button when playing
 	return $(PAUSE).hasClass(PLAYING);
 }
 
