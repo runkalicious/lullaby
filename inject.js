@@ -29,6 +29,11 @@ var CONNECTORS = [
 		name: "Pandora",
 		script: "pandora.js",
 		site: "www.pandora.com"
+	},
+	{
+		name: "Rdio",
+		script: "rdio.js",
+		site: "www.rdio.com"
 	}
 ];
 
