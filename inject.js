@@ -34,6 +34,11 @@ var CONNECTORS = [
 		name: "Rdio",
 		script: "rdio.js",
 		site: "www.rdio.com"
+	},
+	{
+		name: "Songza",
+		script: "songza.js",
+		site: "songza.com"
 	}
 ];
 
