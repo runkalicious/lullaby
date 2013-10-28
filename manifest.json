@@ -20,6 +20,8 @@
 	"persistent": false
   },
   
+  "options_page": "/options/index.html",
+  
   "page_action": {
     "default_icon": {
 		"19": "icons/icon19.png",
