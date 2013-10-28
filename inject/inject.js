@@ -72,7 +72,7 @@ function injectConnector(tabid, callback) {
 		CONNECTORS.every(function(connector) {
 			if (hostname == connector.site) {
 				console.log("Injecting " + connector.name + " script");
-				chrome.tabs.executeScript(tabid, {file: "connectors/" + connector.script}, callback);
+				chrome.tabs.executeScript(tabid, {file: CONNECTOR_PATH + connector.script}, callback);
 				return false; // break
 			}
 			

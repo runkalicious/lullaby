@@ -25,6 +25,12 @@ NOTIFY_WARN_MSG = "In 5 minutes, Lullaby will pause music playback.";
 NOTIFY_PAUSE_TITLE = "Playback Paused";
 NOTIFY_PAUSE_MSG = "Lullaby has paused media playback. Sweet dreams.";
 
+// File Paths
+CONNECTOR_PATH = "/inject/connectors/";
+ICON_PATH = "/icons/";
+JQUERY_PATH = "/js/jquery-2.0.3.min.js";
+INJECT_PATH = "/inject/";
+
 // Helper methods
 if (typeof String.prototype.startsWith != 'function') {
 	String.prototype.startsWith = function(str) {
