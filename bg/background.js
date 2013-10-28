@@ -14,7 +14,7 @@ function createNotification(title, message) {
 		type: "basic",
 		title: title,
 		message: message,
-		iconUrl: "images/icon38.png"
+		iconUrl: "/icons/icon38.png"
 	};
 	
 	chrome.notifications.create("", opt, function(id) {
@@ -45,8 +45,8 @@ function setTimer(minutes, tabid) {
 	chrome.tabs.sendMessage(tabid, { type: 'ping' }, function (response) {
 		// Only inject if they are aren't already in place
 		if (!response) {
-			chrome.tabs.executeScript(tabid, {file: "libs/jquery-2.0.3.min.js"});
-			chrome.tabs.executeScript(tabid, {file: "manager.js"});
+			chrome.tabs.executeScript(tabid, {file: "/js/jquery-2.0.3.min.js"});
+			chrome.tabs.executeScript(tabid, {file: "/inject/manager.js"});
 		}
 	});
 	

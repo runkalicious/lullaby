@@ -87,7 +87,6 @@ document.addEventListener('DOMContentLoaded', function () {
 		tabid = array_of_tabs[0].id;
 		
 		chrome.alarms.get(ALARM_PAUSE + "-" + tabid, function(alarm) {
-			console.log(alarm);
 			if (alarm === undefined) {
 				console.log("Show form");
 				// No sleep timer set, show form

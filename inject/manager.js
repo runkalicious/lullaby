@@ -9,8 +9,6 @@
  *
  */
 
-console.log("I'm the broker!");
-
 chrome.runtime.onMessage.addListener(
 	function(request, sender, sendResponse) {
 		switch(request.task) {

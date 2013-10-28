@@ -1,30 +1,38 @@
 {
-  "manifest_version": 2,
-
   "name": "Lullaby",
   "description": "A sleep timer for streaming web services.",
+  "homepage_url": "https://github.com/runkalicious/lullaby",
+  
+  "manifest_version": 2,
   "version": "0.9.3",
   
-  "icons": { "128": "images/icon128.png" },
+  "icons": { 
+    "128": "icons/icon128.png"
+  },
 
   "background": { 
-	"page": "background.html",
+	"scripts": [
+     "js/jquery-2.0.3.min.js",
+     "js/defines.js",
+     "inject/inject.js",
+     "bg/background.js"
+   ],
 	"persistent": false
   },
   
   "page_action": {
     "default_icon": {
-		"19": "images/icon19.png",
-		"38": "images/icon38.png"
-	},
-	"default_title": "Lullaby",
-    "default_popup": "popup.html"
+		"19": "icons/icon19.png",
+		"38": "icons/icon38.png"
+	 },
+	 "default_title": "Lullaby",
+    "default_popup": "page_action/popup.html"
   },
   
   "permissions": [
-	"activeTab",
-	"alarms",
-	"tabs",
-	"notifications"
+    "activeTab",
+    "alarms",
+    "tabs",
+    "notifications"
   ]
 }
