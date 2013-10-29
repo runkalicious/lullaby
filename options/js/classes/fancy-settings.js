@@ -81,8 +81,6 @@
                 type,
                 maxWidth;
             
-            console.log(settings);
-            
             types = [
                 "text",
                 "button",
@@ -129,22 +127,19 @@
         settings = new FancySettings(manifest.name, manifest.icon);
         settings.manifest = {};
         
+        // Add site connectors to options
+        CONNECTORS.each(function(connector) {
+            var params = Object.create(this.manifest.base_site);
+            params.name = connector.name.replace(" ","").toLowerCase();
+            params.label = connector.name;
+            
+            manifest.settings.push(params);
+        });            
+        
         manifest.settings.each(function (params) {
             output = settings.create(params);
             if (params.name !== undefined) {
                 settings.manifest[params.name] = output;
-            }
-        });
-        
-        // Add site connectors to options
-        CONNECTORS.each(function(connector) {
-            params = this.manifest.base_site;
-            params.name = connector.name.replace(" ","");
-            params.label = connector.name;
-            
-            output = settings.create(params);
-            if (params.name !== undefined) {
-               settings.manifest[params.name] = output;
             }
         });
         

@@ -65,13 +65,13 @@ this.manifest = {
             "text": i18n.get("author-description")
         }
     ],
+    
     "base_site": {
       "tab": i18n.get("options"),
       "group": i18n.get("sites"),
-      "name": "NAME",
       "type": "checkbox",
-      "label": "LABEL",
       "default": true
     },
+    
     "alignment": [ ]
 };
