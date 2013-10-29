@@ -68,14 +68,11 @@ this.i18n = {
     "notifications": {
         "en": "Notifications"
     },
-    "confirm": {
-        "en": "Confirmation"
-    },
     "warning": {
-        "en": "5-minute warning"
+        "en": "Show 5-minute warning"
     },
     "paused": {
-        "en": "Paused"
+        "en": "Show paused message"
     },
     "sites": {
         "en": "Supported Sites"

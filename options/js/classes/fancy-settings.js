@@ -136,6 +136,18 @@
             }
         });
         
+        // Add site connectors to options
+        CONNECTORS.each(function(connector) {
+            params = this.manifest.base_site;
+            params.name = connector.name.replace(" ","");
+            params.label = connector.name;
+            
+            output = settings.create(params);
+            if (params.name !== undefined) {
+               settings.manifest[params.name] = output;
+            }
+        });
+        
         if (manifest.alignment !== undefined) {
             document.body.addClass("measuring");
             manifest.alignment.each(function (group) {

@@ -31,14 +31,6 @@ this.manifest = {
         {
             "tab": i18n.get("options"),
             "group": i18n.get("notifications"),
-            "name": "confirm",
-            "type": "checkbox",
-            "label": i18n.get("confirm"),
-            "default": true
-        },
-        {
-            "tab": i18n.get("options"),
-            "group": i18n.get("notifications"),
             "name": "warning",
             "type": "checkbox",
             "label": i18n.get("warning"),
@@ -52,14 +44,9 @@ this.manifest = {
             "label": i18n.get("paused"),
             "default": true
         },
-        {
-            "tab": i18n.get("options"),
-            "group": i18n.get("sites"),
-            "name": "google",
-            "type": "checkbox",
-            "label": i18n.get("google"),
-            "default": true
-        },
+        
+        // Site connectors auto-populated
+        
         
         {
             "tab": i18n.get("about"),
@@ -78,7 +65,13 @@ this.manifest = {
             "text": i18n.get("author-description")
         }
     ],
-    "defaults": {
-      "confirm": "checked"
-    }
+    "base_site": {
+      "tab": i18n.get("options"),
+      "group": i18n.get("sites"),
+      "name": "NAME",
+      "type": "checkbox",
+      "label": "LABEL",
+      "default": true
+    },
+    "alignment": [ ]
 };
