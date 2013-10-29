@@ -33,7 +33,8 @@ function pausePlayback(tabid) {
 		});
 	});
 	
-	createNotification(NOTIFY_PAUSE_TITLE, NOTIFY_PAUSE_MSG);
+   if (getSetting("paused"))
+      createNotification(NOTIFY_PAUSE_TITLE, NOTIFY_PAUSE_MSG);
 }
 
 function setTimer(minutes, tabid) {
@@ -54,7 +55,7 @@ function setTimer(minutes, tabid) {
 }
 
 function onAlarm(alarm) {
-	if (alarm && alarm.name.startsWith(ALARM_WARNING))
+	if (alarm && alarm.name.startsWith(ALARM_WARNING) && getSetting("warning"))
 		createNotification(NOTIFY_WARN_TITLE, NOTIFY_WARN_MSG);
 	else if (alarm && alarm.name.startsWith(ALARM_PAUSE))
 		pausePlayback(parseInt(alarm.name.split("-")[1]));
@@ -65,6 +66,10 @@ function onAlarm(alarm) {
 function clearTimers(tabid) {
 	chrome.alarms.clear(ALARM_WARNING + "-" + tabid);
 	chrome.alarms.clear(ALARM_PAUSE + "-" + tabid);
+}
+
+function getSetting(name) {
+   return localStorage["store.settings."+name];
 }
 
 // Register alarm callbacks

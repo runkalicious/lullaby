@@ -51,9 +51,9 @@ function getHostname(url) {
 
 function checkForSupportedSite(tabId, changeInfo, tab) {
 	var hostname = getHostname(tab.url);
-	
+   
 	var match = !CONNECTORS.every(function(connector) {
-		if (hostname == connector.site) {
+		if (hostname === connector.site && isConnectorEnabled(connector.name)) {
 			chrome.pageAction.show(tabId);
 			return false; // break
 		}
@@ -68,17 +68,25 @@ function checkForSupportedSite(tabId, changeInfo, tab) {
 function injectConnector(tabid, callback) {
 	chrome.tabs.get(tabid, function(tab) {
 		var hostname = getHostname(tab.url);
-		
+      
 		CONNECTORS.every(function(connector) {
 			if (hostname == connector.site) {
-				console.log("Injecting " + connector.name + " script");
-				chrome.tabs.executeScript(tabid, {file: CONNECTOR_PATH + connector.script}, callback);
+            console.log("Injecting " + connector.name + " script");
+            chrome.tabs.executeScript(tabid, {file: CONNECTOR_PATH + connector.script}, callback);
 				return false; // break
 			}
 			
 			return true;
 		});
 	});
+}
+
+function isConnectorEnabled(name) {
+   var enabled = localStorage["store.settings."+name.replace(" ","").toLowerCase()];
+   if (enabled === undefined)
+      enabled = "true";
+   
+   return (enabled === "true") ? true : false;
 }
 
 // Listen for any changes to the URL of any tab
