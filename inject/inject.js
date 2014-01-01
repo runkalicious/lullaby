@@ -9,6 +9,15 @@
  *
  */
 
+ /**
+  * Every connector must define:
+  *  `name`: a unique string identifying the connector
+  *  `script`: the filename of the script relative to connectors directory
+  *  `site`: the base hostname of the website where the connector is used
+  * Optionally, one may define:
+  *  `path`: a URL path on the site to limit the injection point
+  *  `protocol`: a web protocol to limit the injection point (default: any)
+  */
 var CONNECTORS = [
 	{
 		name: "8tracks",
@@ -18,7 +27,8 @@ var CONNECTORS = [
 	{
 		name: "Google Music",
 		script: "googlemusic.js",
-		site: "play.google.com"
+		site: "play.google.com",
+      path: "/music/listen"
 	},
 	{
 		name: "Grooveshark",
@@ -42,18 +52,37 @@ var CONNECTORS = [
 	}
 ];
 
-function getHostname(url) {
-	// Dirty trick to get hostname of URL without library
+function parseURL(url) {
+   // Get Location object through anchor tag
 	var a = document.createElement('a');
 	a.href = url;
-	return a.hostname;
+   
+   console.log("Location: proto=" + a.protocol + ", site=" + a.hostname + ", path=" + a.pathname)
+   
+   return a;
+}
+
+function isConnectorAllowed(connector, url) {
+   if (!isConnectorEnabled(connector.name))
+      return false;
+   
+   var uri = parseURL(url);
+   
+   if (connector.hasOwnProperty('protocol') && uri.protocol != connector.protocol)
+      return false;
+   
+   if (uri.hostname != connector.site)
+      return false;
+   
+   if (connector.hasOwnProperty('path') && !uri.pathname.startsWith(connector.path))
+      return false;
+      
+   return true;
 }
 
 function checkForSupportedSite(tabId, changeInfo, tab) {
-	var hostname = getHostname(tab.url);
-   
 	var match = !CONNECTORS.every(function(connector) {
-		if (hostname === connector.site && isConnectorEnabled(connector.name)) {
+		if (isConnectorAllowed(connector, tab.url)) {
 			chrome.pageAction.show(tabId);
 			return false; // break
 		}
@@ -67,10 +96,8 @@ function checkForSupportedSite(tabId, changeInfo, tab) {
 
 function injectConnector(tabid, callback) {
 	chrome.tabs.get(tabid, function(tab) {
-		var hostname = getHostname(tab.url);
-      
 		CONNECTORS.every(function(connector) {
-			if (hostname == connector.site) {
+			if (isConnectorAllowed(connector, tab.url)) {
             console.log("Injecting " + connector.name + " script");
             chrome.tabs.executeScript(tabid, {file: CONNECTOR_PATH + connector.script}, callback);
 				return false; // break
