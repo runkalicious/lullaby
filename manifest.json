@@ -4,7 +4,7 @@
   "homepage_url": "https://github.com/runkalicious/lullaby",
   
   "manifest_version": 2,
-  "version": "0.9.4",
+  "version": "0.9.5",
   
   "icons": { 
     "128": "icons/icon128.png"

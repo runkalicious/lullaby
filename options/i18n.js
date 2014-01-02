@@ -61,6 +61,10 @@ this.i18n = {
         "en": "<ul><li>Added user options and information page</li>\
         <li>Changed extension directory structure</li></ul>"
     },
+    "v0.9.5-description": {
+        "en": "<ul><li>Re-styled icons and popup</li>\
+        <li>Fixed Google Music connector to display only on player page</li></ul>"
+    },
     
     "options": {
         "en": "Options"

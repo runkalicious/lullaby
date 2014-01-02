@@ -4,6 +4,12 @@ this.manifest = {
     "settings": [
         {
             "tab": i18n.get("news"),
+            "group": "v0.9.5",
+            "type": "description",
+            "text": i18n.get("v0.9.5-description")
+        },
+        {
+            "tab": i18n.get("news"),
             "group": "v0.9.4",
             "type": "description",
             "text": i18n.get("v0.9.4-description")
