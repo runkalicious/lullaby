@@ -14,7 +14,7 @@ function createNotification(title, message) {
 		type: "basic",
 		title: title,
 		message: message,
-		iconUrl: ICON_PATH + "icon38.png"
+		iconUrl: ICON_PATH + "icon128.png"
 	};
 	
 	chrome.notifications.create("", opt, function(id) {
