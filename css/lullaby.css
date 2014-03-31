@@ -38,15 +38,11 @@ header > h1::after {
 }
 
 section {
-   -webkit-padding-start: 18px;
-   -webkit-padding-end: 18px;
+   -webkit-padding-start: 0px;
+   -webkit-padding-end: 0px;
    margin-bottom: 24px;
    margin-top: 8px;
    overflow: hidden;
-}
-
-section > h3 {
-   -webkit-margin-start: -18px;
 }
 
 footer {
@@ -57,17 +53,20 @@ footer {
 
 label {
    font-weight: bold;
-   float: left;
 }
 
-select {
-   clear: both;
+input[type=number] {
+   width: 40px;
+   padding-left: 3px;
+}
+
+input[type=submit], button {
+   margin: 5px 0 0;
    width: 100%;
 }
 
-input[type=submit] {
-   margin: 5px 0 0;
-   float: right;
+p {
+  text-align: center;
 }
 
 #pause_time {
@@ -75,12 +74,9 @@ input[type=submit] {
    text-align: center;
 }
 
-#cancel {
-   float: right;
-}
-
 #notification {
    text-align: center;
+   margin-bottom: 0;
 }
 
 #message {

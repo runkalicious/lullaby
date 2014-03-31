@@ -28,19 +28,14 @@
       <h3>Sleep Timer</h3>
       <form id="timer" name="timer">
          <label for="length">Pause in</label>
-         <select name="length" id="length">
-            <option value="1">1 Minutes</option>
-            <option value="15">15 Minutes</option>
-            <option value="30">30 Minutes</option>
-            <option value="45">45 Minutes</option>
-            <option value="60">60 Minutes</option>
-         </select>
+         <input type="number" min="1" step="any" name="length" id="length" value="30" />
+         <label>minutes</label>
          <input type="submit" name="submit" value="Snooze" />
       </form>
    </section>
    <section id="timer_active" style="position: static; display: none;">
-      <p>Lullaby will pause this service in:</p>
-      <p id="pause_time">0:00:59</p>
+      <p>Lullaby will pause this service in</p>
+      <h2 id="pause_time">0:00:59</h2>
       <button id="cancel">Cancel</button>
    </section>
    <footer>

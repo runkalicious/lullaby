@@ -26,9 +26,16 @@ function submitForm(e) {
 	if (e.preventDefault) e.preventDefault();
 	
 	var length = $('#length').val();
+	if (isNaN(length)) {
+		showNotification("Invalid time specified");
+		return false;
+	}
+	else {
+		hideNotification();
+	}
+  
 	console.log("Scheduling timer for " + length + " minutes");
-	
-	chrome.runtime.sendMessage({task: "setTime", time: parseInt(length), tab: tabid}, function(response) {
+	chrome.runtime.sendMessage({task: "setTime", time: parseFloat(length), tab: tabid}, function(response) {
 		window.close();
 	});
 	
@@ -51,6 +58,7 @@ function cancel(e) {
 }
 
 function showNotification(message) {
+	console.log(message);
 	$(ERROR_ID).text(message);
 	$(NOTIFY_ID).show();
 }
@@ -88,13 +96,21 @@ document.addEventListener('DOMContentLoaded', function () {
 		
 		chrome.alarms.get(ALARM_PAUSE + "-" + tabid, function(alarm) {
 			if (alarm === undefined) {
-				console.log("Show form");
 				// No sleep timer set, show form
 				$(FORM_ID).show();
+				
+				$('#length').on('change keyup', function() {
+					// Remove invalid characters
+					var sanitized = $(this).val().replace(/[^0-9.]/g, '');
+					// Remove the first point if there is more than one
+					sanitized = sanitized.replace(/\.(?=.*\.)/, '');
+					// Update value
+					$(this).val(sanitized);
+				});
+				
 				$('#timer').submit(submitForm);
 			}
 			else {
-				console.log("show message");
 				// Sleep timer is already set, show information
 				count = ((alarm.scheduledTime / 1000) - (new Date().getTime() / 1000)) | 0;
 				counter = setInterval(updateCountdown, 1000);
@@ -105,8 +121,5 @@ document.addEventListener('DOMContentLoaded', function () {
 			}
 		});
 	});
-	
-	
-	
 	
 });
