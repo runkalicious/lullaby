@@ -65,6 +65,10 @@ this.i18n = {
         "en": "<ul><li>Re-styled icons and popup</li>\
         <li>Fixed Google Music connector to display only on player page</li></ul>"
     },
+		"v0.9.6-description": {
+        "en": "<ul><li>Allow any sleep timer delay</li>\
+        <li>Fixed Songza connector</li></ul>"
+    },
     
     "options": {
         "en": "Options"

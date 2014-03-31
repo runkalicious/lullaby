@@ -2,6 +2,12 @@ this.manifest = {
     "name": "Lullaby",
     "icon": "/icons/icon128.png",
     "settings": [
+		    {
+            "tab": i18n.get("news"),
+            "group": "v0.9.6",
+            "type": "description",
+            "text": i18n.get("v0.9.6-description")
+        },
         {
             "tab": i18n.get("news"),
             "group": "v0.9.5",
