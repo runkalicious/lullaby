@@ -9,9 +9,9 @@
  *
  */
 
-var PLAYER = 'div.sz-player';
-var PAUSE = 'li.player-pause';
-var PLAYING = 'sz-player-state-play'
+var PLAYER = 'div.player-wrapper';
+var PAUSE = 'div.miniplayer-control-play-pause';
+var PLAYING = 'player-state-play'
 
 function l_isPlaying() {
 	// Songza toggles a class tag on the player div
